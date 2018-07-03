@@ -1,24 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './containers/App.js';
+import App from './containers/App';
 
+if (process.env.NODE_ENV !== 'production') console.log('this is dev mode');
+else console.log('this is prod mode');
 
-if (process.env.NODE_ENV !== 'production') console.log("this is dev mode")
-else console.log("this is prod mode");
-
+/* eslint-disable */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then(registration => {
+        console.log('SW registered: ', registration);
+      })
+      .catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
   });
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
 
 // import './styles.css';
 // import _ from 'lodash';
