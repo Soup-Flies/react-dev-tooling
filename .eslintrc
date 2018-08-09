@@ -32,6 +32,7 @@
   "globals": {
     "fetch": true,
     "window": true,
+    "navigator": true,
     "document": true,
     "__DEV__": true,
     "__TEST__": true,
