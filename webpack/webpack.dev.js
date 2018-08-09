@@ -10,7 +10,11 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: parentDir + 'src',
-    historyApiFallback: true
+    port: 3000,
+    historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:8080'
+    }
   },
   mode: "development"
 });
