@@ -53,8 +53,8 @@ class Team {
       roster
     } = this;
     const sortedTeam = memberTotals.map(v => roster.get(v));
-    this.starters = sortedTeam.slice(0, 5);
-    this.substitutes = sortedTeam.slice(5);
+    this.starters = sortedTeam.slice(0, 10);
+    this.substitutes = sortedTeam.slice(10);
   }
 }
 
