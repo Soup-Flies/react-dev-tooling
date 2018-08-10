@@ -6,7 +6,7 @@ import './styles.css';
 
 if (process.env.NODE_ENV !== 'production') console.log('Development is live on the client');
 else {
-  // Dont have cache busting for development in yet so any service workers would be implemented in production
+  // Dont have cache busting yet so any service workers would be implemented in production
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker

@@ -1,8 +1,7 @@
 class Bot {
   constructor(teamName, max) {
     this.teamName = teamName;
-    this.position = 0;
-    this.name = this.generateName();
+    this.name = '';
     this.stats = {
       total: 0,
       max: max,
@@ -10,14 +9,10 @@ class Bot {
     };
   }
 
-  setPosition(index) {
-    this.position = index;
-  }
-
   build() {
     this.generateName();
     this.generateStats();
-    return this.stats.total;
+    return { botTotal: this.stats.total, name: this.name };
   }
 
   getRand(x, y = 0) {
@@ -25,8 +20,8 @@ class Bot {
   }
 
   generateStat() {
-    const { total, max: maxStats } = this.stats;
-    const max = maxStats > 17 ? 17 : maxStats;
+    const { total, max } = this.stats;
+
     const stat = this.getRand(max - total, 1);
     return stat;
   }
@@ -41,8 +36,21 @@ class Bot {
     });
   }
 
-  regenerateStats(teamStats) {
-    console.log(teamStats);
+  regenerateStats(teamStats, maxTotal) {
+    this.max = maxTotal;
+    let unusedStats = [];
+    for (let i = 1; i < teamStats[0] && i < this.max; i++) {
+      if (teamStats.indexOf(i) === -1) unusedStats.push(i);
+    }
+    const rand = this.getRand(unusedStats.length);
+    const statTotal = unusedStats[rand];
+    const n1 = this.getRand(statTotal);
+    const n2 = this.getRand(statTotal - n1);
+    this.stats.value.strength = n1;
+    this.stats.value.speed = n2;
+    this.stats.value.agility = statTotal - n2 - n1;
+    this.stats.total = this.setTotal();
+    return statTotal;
   }
 
   setTotal() {
@@ -50,18 +58,14 @@ class Bot {
     return Object.keys(value).reduce((a, v) => a + value[v], 0);
   }
 
-  // setStatPosition(stat, position) {}
-
   generateName() {
     return [...Array(8)].reduce(a => {
       const rand = this.getRand(40, 58);
-      return rand > 64 && rand < 91 ? a + String.fromCharCode(rand) : a + this.getRand(10);
+      const name = rand > 64 && rand < 91 ? a + String.fromCharCode(rand) : a + this.getRand(10);
+      this.name = name;
+      return name;
     }, '');
   }
 }
-
-// const thing = new Bot('test', 100);
-// console.log(thing.build());
-// console.log(thing);
 
 module.exports = Bot;

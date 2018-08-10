@@ -6,9 +6,10 @@ class Team {
     this.stats = {
       max: 175,
       total: 0,
-      memberTotals: []
+      memberTotals: [],
+      memberNames: []
     };
-    this.roster = [];
+    this.roster = new Map();
   }
 
   buildTeam() {
@@ -17,18 +18,19 @@ class Team {
   }
 
   generateBots() {
-    while (this.stats.memberTotals.length <= 15) {
-      const { max, total, memberTotals } = this.stats;
+    while (this.stats.memberTotals.length < 15) {
+      const { max, total, memberTotals, memberNames } = this.stats;
       const statMax = max - total > 100 ? 100 : max - total;
       const newBot = new Bot(this.name, statMax);
-      const botTotal = newBot.build();
-      if (memberTotals.indexOf(botTotal) != -1) {
-        newBot.regenerateStats(memberTotals);
-        continue;
+      let { botTotal, botName } = newBot.build();
+      while (memberNames.indexOf(botName) != -1) botName = newBot.generateName();
+      while (memberTotals.indexOf(botTotal) != -1) botTotal = newBot.regenerateStats(memberTotals, max);
+      if (total + botTotal > max) {
+        const [key] = memberTotals.splice(0, 1);
+        this.roster.delete(key);
       }
-      if (total + botTotal > max) memberTotals.splice(0, 1);
       this.stats.memberTotals = this.insertSorted(botTotal, memberTotals);
-      this.roster.push(newBot);
+      this.roster.set(botTotal, newBot);
       this.setTotal();
     }
   }
@@ -46,15 +48,14 @@ class Team {
   }
 
   determinePositions() {
-    //insertion sort??
+    const {
+      stats: { memberTotals },
+      roster
+    } = this;
+    const sortedTeam = memberTotals.map(v => roster.get(v));
+    this.starters = sortedTeam.slice(0, 5);
+    this.substitutes = sortedTeam.slice(5);
   }
 }
-
-const test = new Team('mutilators');
-console.log(test.name);
-console.log(test.generateBots()); /*?.*/
-console.log(test.stats.memberTotals);
-console.log(test.stats.total);
-console.log(test.roster);
 
 module.exports = Team;
