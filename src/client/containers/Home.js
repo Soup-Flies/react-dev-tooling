@@ -9,9 +9,9 @@ export default class Home extends Component {
     loading: false
   };
 
-  getTeam = async () => {
+  getTeam = async name => {
     this.setState({ loading: true });
-    const team = await fetch('/api/generate/team/Kittens')
+    const team = await fetch(`/api/generate/team/${name}`)
       .then(res => res.json())
       .then(data => data);
     console.log('Our team is: ', team);

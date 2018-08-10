@@ -4,6 +4,7 @@
 }
 
 .generate-team {
+  float: left;
   background: #FFFFFF;
   width: 25%;
   padding: 15px;
@@ -34,9 +35,9 @@
 
 .team-input {
   border: none;
-  border-bottom: 1px solid #333;
   margin: 0 auto;
 }
+
 
 .submit-team {
   display: block;
@@ -68,4 +69,54 @@
   background: inherit;
   text-align: center;
   text-transform: uppercase;
+}
+
+.display-team {
+  text-align: center;
+  margin-bottom: 40px;
+  background: #FFFFFF;
+  float: right;
+  width: 70%;
+  padding: 15px 5px;
+}
+
+.attribute-title {
+  text-align: center;
+  clear: both;
+}
+
+h1.heading {
+  font-size: 2em;
+}
+
+.roster, .roster-title {
+  background: #FFFFFF;
+}
+
+.starters, .attribute, .team-stats {
+  background: inherit;
+}
+
+.roster-title {
+  font-size: 1.75em;
+}
+
+.stat-holder {
+  width: 33.3%;
+  padding: 20px 0;
+  text-align: center;
+  float: left;
+}
+
+.starters {
+  margin-bottom: 50px;
+}
+
+.attribute {
+  margin-bottom: 15px;
+}
+
+.player { 
+  margin-bottom: 30px;
+  overflow: auto;
 }
