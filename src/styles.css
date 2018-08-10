@@ -52,5 +52,10 @@ input {
 }
 
 .right-nav:active {
+  line-height: 42px;
+  margin-top: 4px;
+}
+
+.right-nav:active {
   padding-top: 3px;
 }

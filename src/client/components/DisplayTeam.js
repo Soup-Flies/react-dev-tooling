@@ -39,7 +39,6 @@ export default class DisplayTeam extends Component {
 
   render() {
     const { team } = this.props;
-    console.log(team);
     if (Object.keys(team).length === 0) return <NoTeam />;
     return (
       <div className="display-team">

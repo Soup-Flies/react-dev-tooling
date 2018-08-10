@@ -19,6 +19,20 @@
   padding: 0 30px;
 }
 
+.about {
+  width: 80%;
+  margin: 0 auto;
+  background: #FFFFFF;
+  overflow: auto;
+  padding: 20px;
+  height: 80vh;
+}
+
+.about-text {
+  background: inherit;
+  line-height: 1.5em;
+}
+
 .title {
   background: inherit;
   margin: 0 auto;
@@ -37,7 +51,6 @@
   border: none;
   margin: 0 auto;
 }
-
 
 .submit-team {
   display: block;
@@ -108,7 +121,7 @@ h1.heading {
   float: left;
 }
 
-.starters {
+.starters, .subs {
   margin-bottom: 50px;
 }
 

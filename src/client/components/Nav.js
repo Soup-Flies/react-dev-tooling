@@ -5,8 +5,6 @@ import './styles/styles.css';
 
 export default class Nav extends Component {
   render() {
-    console.log('nav.props', this.props);
-
     return (
       <div className="nav-bar bottom-shadow">
         <button type="none">
