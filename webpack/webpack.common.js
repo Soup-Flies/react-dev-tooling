@@ -24,7 +24,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Ima PWA',
+      title: 'Roster Bots',
       template: path.join(parentDir, 'src/index.html')
     }),
     new webpack.NamedModulesPlugin(),
