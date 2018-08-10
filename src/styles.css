@@ -1,6 +1,47 @@
 /* This is the global Styles */
 
-body {
-  background: #EFEFEF;
-  font-size: 16px;
+* {
+  color: #333;
+  background: #E6ECF0;
+  margin: 0;
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.bottom-shadow {
+   box-shadow: 0px 1px 12px 1px #000000;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: inherit;
+  font-size: 1em;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  color: #555;
+}
+
+button:active {
+  margin-top: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  background: inherit;
+}
+
+input {
+  display: block;
+  background: inherit;
+  padding: 0 15px;
+  outline: none;
+  border-bottom: 1px solid #E6ECF0;
+  text-align: center;
 }

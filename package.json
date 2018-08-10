@@ -73,9 +73,11 @@
     "lodash": "^4.17.5",
     "node-fetch": "^2.2.0",
     "pg": "^7.4.1",
+    "prop-types": "^15.6.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
+    "react-router-dom": "^4.3.1",
     "serve-favicon": "^2.5.0"
   }
 }
