@@ -45,3 +45,12 @@ input {
   border-bottom: 1px solid #E6ECF0;
   text-align: center;
 }
+
+.right-nav { 
+  line-height: 50px;
+  float: right;
+}
+
+.right-nav:active {
+  padding-top: 3px;
+}

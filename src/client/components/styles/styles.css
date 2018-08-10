@@ -47,6 +47,14 @@
   border-radius: 10px;
 }
 
+.disabled {
+  color: #E6ECF0;
+}
+
+.disabled:hover {
+  color: #E6ECF0;
+}
+
 .submit-team:active {
   margin-top: 23px;
 }

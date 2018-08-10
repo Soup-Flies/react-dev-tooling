@@ -1,29 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isThisSecond } from 'date-fns';
+
+import Loader from './Loader';
 
 export default class GenerateTeam extends Component {
   state = {
     teamName: '',
-    error: false
+    error: false,
+    loading: false
   };
+
+  static getDerivedStateFromProps(nextProps) {
+    return { loading: nextProps.loading };
+  }
 
   onChange = e => {
     const { name, value } = e.target;
-    if (value.length != 0 && !/ /.test(value)) this.setState({ error: false });
+    if (value.length !== 0 && !/ /.test(value)) this.setState({ error: false });
     this.setState({
       [name]: value
     });
   };
 
-  validate = () => {
+  validateName = () => {
     const { teamName } = this.state;
     if (teamName.length === 0 || / /.test(teamName)) return this.setState({ error: true });
     this.props.getTeam(teamName.trim());
+    this.setState({ loading: true, submitted: teamName.trim() });
   };
 
   render() {
-    const { error } = this.state;
+    const { error, loading, submitted, teamName } = this.state;
+    const disabled = submitted === teamName;
+
     return (
       <div className="generate-team">
         <div className="title">
@@ -36,10 +45,18 @@ export default class GenerateTeam extends Component {
           onChange={this.onChange}
           placeholder="Team Name"
         />
-        {error && <p className="error-message">no spaces for team name please</p>}
-        <button className="submit-team" onClick={this.validate}>
-          SUBMIT
-        </button>
+        {error && <p className="error-message">team name should be empty or have spaces</p>}
+        {loading ? (
+          <Loader />
+        ) : (
+          <button
+            className={disabled ? 'submit-team disabled' : 'submit-team'}
+            disabled={disabled}
+            onClick={this.validateName}
+          >
+            SUBMIT
+          </button>
+        )}
       </div>
     );
   }
