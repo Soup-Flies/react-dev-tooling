@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Loader from './Loader';
+import ErrorDisplay from './ErrorDisplay';
 
 export default class GenerateTeam extends Component {
   state = {
@@ -24,7 +25,7 @@ export default class GenerateTeam extends Component {
 
   validateName = () => {
     const { teamName } = this.state;
-    if (teamName.length === 0 || / /.test(teamName)) return this.setState({ error: true });
+    if (teamName.length === 0 || /[ \W]/.test(teamName)) return this.setState({ error: true });
     this.props.getTeam(teamName.trim());
     this.setState({ loading: true, submitted: teamName.trim() });
   };
@@ -45,12 +46,12 @@ export default class GenerateTeam extends Component {
           onChange={this.onChange}
           placeholder="Team Name"
         />
-        {error && <p className="error-message">team name should be empty or have spaces</p>}
+        {error && <ErrorDisplay input={this.state.teamName} />}
         {loading ? (
           <Loader />
         ) : (
           <button
-            className={disabled ? 'submit-team disabled' : 'submit-team'}
+            className={disabled ? 'button submit-team disabled' : 'button submit-team'}
             disabled={disabled}
             onClick={this.validateName}
           >

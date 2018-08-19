@@ -13,7 +13,7 @@ export default class DisplayTeam extends Component {
   }
 
   renderBench = arr => {
-    return arr.map(v => (
+    return arr.map((v, i) => (
       <div className="player" key={v.name}>
         <h3 className="attribute-title">Name</h3>
         <div className="attribute">{v.name}</div>
@@ -33,6 +33,9 @@ export default class DisplayTeam extends Component {
             <div>{v.stats.value.agility}</div>
           </div>
         </div>
+        <button onClick={() => this.props.updateBot(i)} className="button re-roll">
+          Re-Roll Stats
+        </button>
       </div>
     ));
   };
@@ -65,5 +68,6 @@ export default class DisplayTeam extends Component {
 }
 
 DisplayTeam.propTypes = {
-  team: PropTypes.object
+  team: PropTypes.object,
+  updateBot: PropTypes.func.isRequired
 };

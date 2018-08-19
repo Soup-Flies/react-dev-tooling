@@ -52,13 +52,23 @@
   margin: 0 auto;
 }
 
-.submit-team {
+.button {
   display: block;
   margin: 20px auto 0;
   width: 150px;
   border: 3px solid #E6ECF0;
   padding: 4px;
   border-radius: 10px;
+}
+
+.re-roll {
+  clear: both;
+  display: block;
+  border-color: #FFFFFF;
+}
+
+.re-roll:active {
+  margin-top: 7px;
 }
 
 .disabled {
@@ -130,6 +140,6 @@ h1.heading {
 }
 
 .player { 
+  padding: 10px;
   margin-bottom: 30px;
-  overflow: auto;
 }

@@ -16,4 +16,11 @@ router.get('/generate/bot/:name/:max', (req, res) => {
   res.json(bot);
 });
 
+router.post('/update/bot', (req, res) => {
+  console.log('req stuff', req.body);
+
+  // const bot = new Bot(name, max);
+  res.json('lolololol');
+});
+
 module.exports = router;
