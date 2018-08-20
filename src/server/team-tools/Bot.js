@@ -1,7 +1,7 @@
 class Bot {
-  constructor(teamName, max) {
+  constructor(teamName, max, name = '') {
     this.teamName = teamName;
-    this.name = '';
+    this.name = name;
     this.stats = {
       total: 0,
       max: max,
@@ -10,7 +10,7 @@ class Bot {
   }
 
   build() {
-    this.generateName();
+    if (this.name === '') this.generateName();
     this.generateStats();
     return { botTotal: this.stats.total, name: this.name };
   }
@@ -21,7 +21,6 @@ class Bot {
 
   generateStat() {
     const { total, max } = this.stats;
-
     const stat = this.getRand(max - total, 1);
     return stat;
   }
@@ -44,8 +43,9 @@ class Bot {
     }
     const rand = this.getRand(unusedStats.length);
     const statTotal = unusedStats[rand];
-    const n1 = this.getRand(statTotal);
-    const n2 = this.getRand(statTotal - n1);
+
+    const n1 = this.getRand(statTotal + 1, 0);
+    const n2 = this.getRand(statTotal - n1 + 1, 0);
     this.stats.value.strength = n1;
     this.stats.value.speed = n2;
     this.stats.value.agility = statTotal - n2 - n1;

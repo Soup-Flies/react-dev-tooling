@@ -5,16 +5,23 @@ const NoTeam = () => <div className="display-team">Please generate a team to see
 
 export default class DisplayTeam extends Component {
   state = {
-    team: {}
+    team: {},
+    loading: false
   };
 
   static getDerivedStateFromProps(nextProps) {
     return { team: nextProps.team };
   }
 
-  renderBench = arr => {
+  randomizeBot = async e => {
+    this.setState({ loading: true });
+    await this.props.updateBot(e.target.name);
+    this.setState({ loading: false });
+  };
+
+  renderBench = (arr, teamString) => {
     return arr.map((v, i) => (
-      <div className="player" key={v.name}>
+      <div className="player" key={i}>
         <h3 className="attribute-title">Name</h3>
         <div className="attribute">{v.name}</div>
         <h3>Total Stats</h3>
@@ -33,8 +40,21 @@ export default class DisplayTeam extends Component {
             <div>{v.stats.value.agility}</div>
           </div>
         </div>
-        <button onClick={() => this.props.updateBot(i)} className="button re-roll">
-          Re-Roll Stats
+        <button
+          name={v.stats.total}
+          disabled={this.state.loading}
+          onClick={this.randomizeBot}
+          className="button re-roll"
+        >
+          Re-Roll Bot
+        </button>
+        <button
+          name={v.stats.total}
+          disabled={this.state.loading}
+          onClick={e => this.props.updateStats(e, teamString, i)}
+          className="button update-stats"
+        >
+          Randomize Stats
         </button>
       </div>
     ));
@@ -42,6 +62,8 @@ export default class DisplayTeam extends Component {
 
   render() {
     const { team } = this.props;
+    console.log('waht is our team', team);
+
     if (Object.keys(team).length === 0) return <NoTeam />;
     return (
       <div className="display-team">
@@ -55,11 +77,11 @@ export default class DisplayTeam extends Component {
         <div className="roster">
           <div className="starters">
             <h2 className="roster-title">Starting Line</h2>
-            {this.renderBench(team.starters)}
+            {this.renderBench(team.starters, 'starters')}
           </div>
           <div className="subs">
             <h2 className="roster-title">Substitutions</h2>
-            {this.renderBench(team.substitutes)}
+            {this.renderBench(team.substitutes, 'substitutes')}
           </div>
         </div>
       </div>
@@ -69,5 +91,6 @@ export default class DisplayTeam extends Component {
 
 DisplayTeam.propTypes = {
   team: PropTypes.object,
-  updateBot: PropTypes.func.isRequired
+  updateBot: PropTypes.func.isRequired,
+  updateStats: PropTypes.func.isRequired
 };

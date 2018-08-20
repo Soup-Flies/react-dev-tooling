@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use((req, res, next) => {
-  console.log('what is our req', req.path);
-  console.log('what is our req type', req.method);
+  console.log('Request path: ', req.path);
+  console.log('Request: ', req.method);
   next();
 });
 

@@ -61,14 +61,21 @@
   border-radius: 10px;
 }
 
-.re-roll {
+.button {
   clear: both;
   display: block;
   border-color: #FFFFFF;
+  margin-bottom: 3px;
 }
 
 .re-roll:active {
+  background: #E1E7EB;
   margin-top: 7px;
+}
+
+.update-stats:active {
+  background: #E1E7EB;
+  margin-top: 20px;
 }
 
 .disabled {

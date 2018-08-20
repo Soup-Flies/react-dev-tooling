@@ -13,10 +13,12 @@ export default class Home extends Component {
     this.setState({ loading: true });
     const response = await axios.get(`/api/generate/team/${name}`).then(data => data);
     if (response.status !== 200) throw new Error('We had an error with the reponse: ', response.status);
-    console.log('Our team is: ', response.data);
 
     this.setState({
-      team: response.data,
+      team: {
+        ...response.data,
+        roster: new Map(response.data.roster)
+      },
       loading: false
     });
   };
@@ -29,14 +31,48 @@ export default class Home extends Component {
       data: { team, bot }
     });
     if (response.status !== 200) throw new Error('We had an error with the reponse: ', response.status);
-    console.log('what is our new bot/', response);
+
+    this.setState({
+      team: {
+        ...response.data,
+        roster: new Map(response.data.roster)
+      }
+    });
+  };
+
+  getRand(x, y = 0) {
+    return Math.floor(Math.random() * (x + 1)) + y;
+  }
+
+  updateStats = (e, teamString, index) => {
+    const botStats = e.target.name;
+    const { roster, [teamString]: teamLine } = this.state.team;
+
+    const bot = roster.get(parseInt(botStats));
+    const statTotal = bot.stats.total;
+    const n1 = this.getRand(statTotal, 0);
+    const n2 = this.getRand(statTotal - n1, 0);
+
+    bot.stats.value.strength = n1;
+    bot.stats.value.speed = n2;
+    bot.stats.value.agility = statTotal - n2 - n1;
+    roster.set(bot.stats.total, bot);
+    teamLine.splice(index, 1, bot);
+
+    this.setState({
+      team: {
+        ...this.state.team,
+        roster,
+        [teamString]: teamLine
+      }
+    });
   };
 
   render() {
     return (
       <div className="main">
         <GenerateTeam getTeam={this.getTeam} loading={this.state.loading} />
-        <DisplayTeam team={this.state.team} updateBot={this.updateBot} />
+        <DisplayTeam team={this.state.team} updateBot={this.updateBot} updateStats={this.updateStats} />
       </div>
     );
   }
