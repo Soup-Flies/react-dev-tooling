@@ -9,6 +9,7 @@ export default class Home extends Component {
     loading: false
   };
 
+  // Query the server for a new randomly generated team, check for any server errors, then set state to contain the new team and loading to be false
   getTeam = async name => {
     this.setState({ loading: true });
     const response = await axios.get(`/api/generate/team/${name}`).then(data => data);
@@ -23,6 +24,7 @@ export default class Home extends Component {
     });
   };
 
+  // Send the team and pre-existing bot to the server for a newly generate bot that fits the team parameters
   updateBot = async bot => {
     const { team } = this.state;
     const response = await axios({
@@ -44,6 +46,7 @@ export default class Home extends Component {
     return Math.floor(Math.random() * (x + 1)) + y;
   }
 
+  // Randomize a bot's stats on the client and update state in-case the team was to be saved and used
   updateStats = (e, teamString, index) => {
     const botStats = e.target.name;
     const { roster, [teamString]: teamLine } = this.state.team;

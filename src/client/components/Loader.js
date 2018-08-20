@@ -6,6 +6,7 @@ const loaderWrapper = {
   background: '#FFFFFF'
 };
 
+// A copy pasted loading animation as a functional component that would never need state or a constructor
 const Loader = () => (
   <div style={loaderWrapper}>
     <div className="loader">

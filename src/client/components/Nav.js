@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './styles/styles.css';
 
+// Utilize the Link component for SPA routing that doesn't reload the entire page onClick
 export default class Nav extends Component {
   render() {
     return (

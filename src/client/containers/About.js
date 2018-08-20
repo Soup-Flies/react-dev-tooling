@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class About extends Component {
+// Use a pure component for the computational advantages versus a class component, in case an about page would need state in the future
+export default class About extends PureComponent {
   render() {
     return (
       <div className="about">

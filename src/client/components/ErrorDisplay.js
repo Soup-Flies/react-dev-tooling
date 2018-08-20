@@ -9,6 +9,7 @@ const getErrorType = input => {
   else if (input.length > 15) return `${base} be over 15 characters`;
 };
 
+// Extensible and reusable error message component that internally determines the error from the given input
 const ErrorDisplay = ({ input }) => <p className="error-message">{getErrorType(input)}</p>;
 
 ErrorDisplay.propTypes = {

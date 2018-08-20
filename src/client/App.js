@@ -4,6 +4,7 @@ import Home from './containers/Home';
 import About from './containers/About';
 import Nav from './components/Nav';
 
+// Small implementation of react router that has a statically rendered element, Nav, with path based elements of Home and About
 export default class App extends Component {
   render() {
     return (

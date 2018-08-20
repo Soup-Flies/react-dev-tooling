@@ -13,12 +13,14 @@ export default class DisplayTeam extends Component {
     return { team: nextProps.team };
   }
 
+  // Utilize function from props to update stats, keeping logic in the container
   randomizeBot = async e => {
     this.setState({ loading: true });
     await this.props.updateBot(e.target.name);
     this.setState({ loading: false });
   };
 
+  // Take in an array of players to display it, with context of which team position so they can update stats
   renderBench = (arr, teamString) => {
     return arr.map((v, i) => (
       <div className="player" key={i}>
@@ -62,7 +64,6 @@ export default class DisplayTeam extends Component {
 
   render() {
     const { team } = this.props;
-    console.log('waht is our team', team);
 
     if (Object.keys(team).length === 0) return <NoTeam />;
     return (

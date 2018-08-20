@@ -1,5 +1,7 @@
 const Bot = require('./Bot');
 
+// To me classes made sense for this because if this was to be built out as a full team manager
+// then instancing for different teams would be easy, with pre-attached methods
 class Team {
   constructor(teamName) {
     this.name = teamName[0].toUpperCase() + teamName.slice(1).toLowerCase();
@@ -12,11 +14,13 @@ class Team {
     this.roster = new Map();
   }
 
+  // I felt that a direct method for generating a team was nice incase you wanted an instance that has a different use case
   buildTeam() {
     this.generateBots();
     this.determinePositions();
   }
 
+  // Rather than updating the constructor to expect a previously generated team, having a team built by a method made sense to me
   constructFromRaw({ stats, roster, starters, substitutes }) {
     this.stats = stats;
     this.roster = new Map(roster);
@@ -24,6 +28,7 @@ class Team {
     this.substitutes = substitutes;
   }
 
+  // Take a pre-existing bot and regenerate it's stats based off of unused stat values
   randomizeBot(bot) {
     const rosterBot = this.roster.get(bot);
     this.roster.delete(bot);
@@ -33,6 +38,7 @@ class Team {
     this.determinePositions();
   }
 
+  // Generate an entire team of bots making usre there are no dublicate names or stat totals
   generateBots(previousName = '') {
     while (this.stats.memberTotals.length < 15) {
       const { max, total, memberTotals, memberNames } = this.stats;
@@ -54,6 +60,8 @@ class Team {
     }
   }
 
+  // As the team is built this method is called to keep them sorted as they are generated, this means that if a different sort was to be
+  // used in the future it would be easy to convert previous instances of the sort to new methods
   insertSorted(item, array) {
     const arr = array.slice(0);
     arr.push(item);
@@ -61,11 +69,13 @@ class Team {
     return arr;
   }
 
+  // Keep the total team stats up to date so that each generated bot has an awareness of the stat points in reserve for their own maximum
   setTotal() {
     const { memberTotals } = this.stats;
     this.stats.total = memberTotals.reduce((a, v) => a + v, 0);
   }
 
+  // Utilize the fact that bots are already sorted on generation to determine their positions on the team by stat total
   determinePositions() {
     const {
       stats: { memberTotals },

@@ -11,10 +11,12 @@ export default class GenerateTeam extends Component {
     loading: false
   };
 
+  // Utilize React 16 method to update state based on new props
   static getDerivedStateFromProps(nextProps) {
     return { loading: nextProps.loading };
   }
 
+  // non-biased onchange event that tests inputs for expected values
   onChange = e => {
     const { name, value } = e.target;
     if (value.length !== 0 && !/ /.test(value)) this.setState({ error: false });
@@ -23,6 +25,7 @@ export default class GenerateTeam extends Component {
     });
   };
 
+  // Validation that only runs on submit click so users do not get spam of errors while typing into inputs
   validateName = () => {
     const { teamName } = this.state;
     if (teamName.length === 0 || /[ \W]/.test(teamName)) return this.setState({ error: true });

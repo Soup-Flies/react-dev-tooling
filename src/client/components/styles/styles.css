@@ -150,3 +150,17 @@ h1.heading {
   padding: 10px;
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 1024px) {
+  .generate-team {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 25px;
+  }
+
+  .display-team {
+    width: 95%;
+
+  }
+}
